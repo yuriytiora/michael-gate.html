@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>UNITWELVERSE // Noosphere Auth Gate</title>
+<style>
+body, html {
+    margin: 0; padding: 0; width: 100%; height: 100%; overflow: hidden;
+    background-color: #020617; font-family: 'Segoe UI', Roboto, monospace;
+    display: flex; justify-content: center; align-items: center;
+}
+/* Космический глубокий фон */
+body::before {
+    content: ""; position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+    background-image: url('bg3.webp'); background-size: cover; background-position: center;
+    opacity: 0.25; z-index: 1;
+}
+/* 3D-Сцена для вращения Квадрата времени */
+.flip-scene {
+    width: 260px; height: 260px; perspective: 1200px; z-index: 10; position: relative;
+}
+.flip-card {
+    width: 100%; height: 100%; position: relative; transform-style: preserve-3d;
+    animation: autoNoosphereFlip 6s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+    cursor: pointer;
+}
+/* Автоматический 3D-переворот Аверса и Реверса каждые 3 секунды */
+@keyframes autoNoosphereFlip {
+    0%, 45% { transform: rotateY(0deg); }
+    50%, 95% { transform: rotateY(180deg); }
+}
+.card-face {
+    position: absolute; width: 100%; height: 100%; backface-visibility: hidden;
+    display: flex; flex-direction: column; justify-content: center; align-items: center;
+    box-sizing: border-box; border-radius: 8px; font-weight: bold;
+}
+/* 💎 АВЕРС — I'll be a star (Новый Новатор / Рождение Звезды Майкла) */
+.face-avers {
+    background: rgba(0, 240, 255, 0.05);
+    backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px);
+    border: 1px solid rgba(0, 240, 255, 0.45);
+    box-shadow: 0 0 35px rgba(0, 240, 255, 0.2);
+    color: #00f0ff; text-shadow: 0 0 8px rgba(0, 240, 255, 0.6);
+}
+/* 🌌 РЕВЕРС — I'm a star (Действующая защищенная Звезда) */
+.face-revers {
+    background: rgba(13, 21, 39, 0.85);
+    backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px);
+    border: 1px solid rgba(189, 0, 255, 0.5);
+    transform: rotateY(180deg);
+    box-shadow: 0 0 35px rgba(189, 0, 255, 0.3), inset 0 0 20px rgba(189, 0, 255, 0.1);
+    color: #fff; text-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
+}
+/* ⭐ Векторная Звезда UNITWELVERSE */
+.star-svg {
+    width: 120px; height: 130px;
+    filter: drop-shadow(0 0 12px rgba(255,255,255,0.8));
+    transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+/* На Реверсе звезда вырывается вперед, перекрывая рамки куба (3D-эффект!) */
+.face-revers .star-svg {
+    transform: translateZ(50px) scale(1.05);
+    filter: drop-shadow(0 0 25px rgba(0, 240, 255, 0.95));
+}
+.star-text {
+    font-size: 0.85rem; letter-spacing: 1.5px; text-transform: uppercase;
+    margin-top: 15px; font-family: monospace;
+}
+</style>
+</head>
+<body>
+    <!-- 🔮 КВАНТОВЫЙ 3D-КВАРЦЕВЫЙ КУБ ВХОДА (АВЕРС / РЕВЕРС) -->
+    <div class="flip-scene" id="noosphere-auth-gate" style="display: block;">
+        <div class="flip-card" id="interactive-card" onclick="handleAuthChoice(event)">
+            <!-- 💎 АВЕРС: I'll be a star (Вход и запуск квеста Майкла) -->
+            <div class="card-face face-avers">
+                <svg class="star-svg" viewBox="0 0 100 100">
+                    <polygon points="50,0 61,35 98,35 68,57 79,91 50,70 21,91 32,57 2,35 39,35" fill="rgba(0, 240, 255, 0.15)" stroke="#00f0ff" stroke-width="1.5"/>
+                </svg>
+                <div class="star-text">I'll be a star</div>
+            </div>
+            <!-- 🌌 РЕВЕРС: I'm a star (Вход по паролю для Мастеров) -->
+            <div class="card-face face-revers">
+                <svg class="star-svg" viewBox="0 0 100 100">
+                    <polygon points="50,0 61,35 98,35 68,57 79,91 50,70 21,91 32,57 2,35 39,35" fill="#fff" stroke="#bd00ff" stroke-width="2"/>
+                </svg>
+                <div class="star-text">I'm a star</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 🚀 ФИНАЛ СБОРКИ: Нажмите зеленую кнопку «Commit changes» внизу экрана для публикации -->
+    <script>
+    let questActive = false;
+
+    function handleAuthChoice(event) {
+        if (questActive) return;
+
+        // Определяем, на какой стороне застыл Квадрат времени при клике
+        const card = document.getElementById('interactive-card');
+        const computedStyle = window.getComputedStyle(card);
+        const transformMatrix = computedStyle.getPropertyValue('transform');
+        
+        let isRevers = false;
+        if (transformMatrix !== 'none') {
+            const values = transformMatrix.split('(')[1].split(')')[0].split(',');
+            const a = parseFloat(values[0]);
+            if (a < 0) isRevers = true; // Фиксация разворота реверса
+        }
+
+        card.style.animation = 'none'; // Останавливаем вращение времени
+        questActive = true;
+
+        if (isRevers) {
+            // Ветка Мастера
+            alert("SYSTEM: Enter your unique Noosphere Star ID code and cryptographic password signature.");
+            location.reload(); // Мгновенный сброс симуляции
+        } else {
+            // Ветка Инициации Майкла (Иллюзия работы)
+            alert("WELCOME, MICHAEL!\n\nYour Space Inception Protocol is activated. Initializing personal navigator console node...");
+            // Имитируем рождение новой звезды Майкла и выдачу номера
+            alert("STAR GENERATED SUCCESSFULLY!\n\nStar Name: Michael (USA)\nAssigned ID: #0001-SF-CYBER\nStatus: Initiative Star");
+            alert("NEXT PROTOCOL:\n\nRedirecting to orbital cockpit node over San Francisco to capture your Cyber-Safety Bot prompt text.");
+        }
+    }
+    </script>
+</body>
+</html>
