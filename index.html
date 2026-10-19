@@ -22,10 +22,10 @@ body::before {
 }
 .flip-card {
     width: 100%; height: 100%; position: relative; transform-style: preserve-3d;
-    animation: autoNoosphereFlip 6s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+    animation: autoNoosphereFlip 4s cubic-bezier(0.4, 0, 0.2, 1) infinite;
     cursor: pointer;
 }
-/* Автоматический 3D-переворот Аверса и Реверса каждые 3 секунды */
+/* Автоматический 3D-переворот Аверса и Реверса каждые 2 секунды */
 @keyframes autoNoosphereFlip {
     0%, 45% { transform: rotateY(0deg); }
     50%, 95% { transform: rotateY(180deg); }
